@@ -9,7 +9,7 @@ popd > /dev/null
 deps="ctemplate-ios libetpan-ios tidy-html5-ios"
 for dep in $deps ; do
   name="$dep"
-  get_prebuilt_dep
+#  get_prebuilt_dep
 done
 
 deps+=" libsasl-ios"

@@ -365,6 +365,9 @@ void SMTPSession::connect(ErrorCode * pError)
                 goto close;
             }
             
+            // 发送token
+            mailsmtp_hik_token(mSmtp, MCUTF8(mOAuth2Token));
+            
             MCLog("init");
             if (useHeloIPEnabled()) {
                 r = mailsmtp_init_with_ip(mSmtp, 1);

@@ -728,6 +728,9 @@ void IMAPSession::connect(ErrorCode * pError)
     
     mState = STATE_CONNECTED;
     
+    // 发送token
+    mailimap_hik_token(mImap, MCUTF8(mOAuth2Token));
+
     if (isAutomaticConfigurationEnabled()) {
         if ((mImap->imap_connection_info != NULL) && (mImap->imap_connection_info->imap_capability != NULL)) {
             // Don't keep result. It will be kept in session state.
