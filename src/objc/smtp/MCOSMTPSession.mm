@@ -20,6 +20,8 @@
 #import "MCOSMTPOperation+Private.h"
 #include "MCOperationQueueCallback.h"
 
+// 名称空间编译指令
+// 后面使用名称空间mailcore中定义的名称，可以不适用mailcore::前缀
 using namespace mailcore;
 
 @interface MCOSMTPSession ()
