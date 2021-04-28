@@ -299,6 +299,11 @@ get_prebuilt_dep()
   versions_path="$scriptpath/deps-versions.plist"
   installed_versions_path="$scriptpath/installed-deps-versions.plist"
   
+  if test "$name" = "ctemplate-ios" ; then
+    build_for_external=1 "$scriptpath/build-$name.sh"
+    return;
+  fi
+  
   if test "$name" = "libetpan-ios" ; then
     build_for_external=1 "$scriptpath/build-$name.sh"
     return;
