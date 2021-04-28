@@ -1,8 +1,7 @@
 #!/bin/sh
 
-pushd "`dirname "$0"`" 
+pushd "`dirname "$0"`" > /dev/null
 scriptpath="`pwd`"
-echo "scriptpath = "$scriptpath
 popd > /dev/null
 
 . "$scriptpath/include.sh/build-dep.sh"
