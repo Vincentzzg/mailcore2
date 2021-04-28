@@ -4522,7 +4522,7 @@
 			buildSettings = {
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_BITCODE = YES;
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				EXECUTABLE_PREFIX = lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -4539,7 +4539,7 @@
 			buildSettings = {
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_BITCODE = YES;
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				EXECUTABLE_PREFIX = lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
