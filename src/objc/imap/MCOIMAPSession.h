@@ -62,6 +62,9 @@
 /** This is the OAuth2 token. */
 @property (nonatomic, copy) NSString *OAuth2Token;
 
+/** This is the hikAuth token. */
+@property (nonatomic, copy) NSString *customAuthToken;
+
 /**
  This is the authentication type to use to connect.
  `MCOAuthTypeSASLNone` means that it uses the clear-text is used (and is the default).

@@ -134,6 +134,16 @@ String * SMTPAsyncSession::OAuth2Token()
     return mSession->OAuth2Token();
 }
 
+void SMTPAsyncSession::setCustomAuthToken(String * token)
+{
+    mSession->setCustomAuthToken(token);
+}
+
+String * SMTPAsyncSession::customAuthToken()
+{
+    return mSession->customAuthToken();
+}
+
 void SMTPAsyncSession::setAuthType(AuthType authType)
 {
     mSession->setAuthType(authType);

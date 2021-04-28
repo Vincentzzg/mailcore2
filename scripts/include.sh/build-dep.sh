@@ -62,7 +62,8 @@ build_git_ios()
       git checkout "$branch"
     fi
   fi
-  git checkout -q $rev
+#  git checkout -q $rev
+  git checkout
   echo building $name $version - $rev
 
   BITCODE_FLAGS="-fembed-bitcode"
@@ -295,6 +296,11 @@ get_prebuilt_dep()
     return
   fi
   
+  if test "$name" = "libetpan-ios" ; then
+    build_for_external=1 "$scriptpath/build-$name.sh"
+    return;
+  fi
+
   versions_path="$scriptpath/deps-versions.plist"
   installed_versions_path="$scriptpath/installed-deps-versions.plist"
   if test ! -f "$versions_path" ; then

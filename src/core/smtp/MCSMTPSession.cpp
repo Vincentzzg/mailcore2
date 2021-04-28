@@ -35,6 +35,7 @@ void SMTPSession::init()
     mPassword = NULL;
     mOAuth2Token = NULL;
     mAuthType = AuthTypeSASLNone;
+    mCustomAuthToken = NULL;
     mConnectionType = ConnectionTypeClear;
     mTimeout = 30;
     mCheckCertificateEnabled = true;
@@ -72,6 +73,7 @@ SMTPSession::~SMTPSession()
     MC_SAFE_RELEASE(mUsername);
     MC_SAFE_RELEASE(mPassword);
     MC_SAFE_RELEASE(mOAuth2Token);
+    MC_SAFE_RELEASE(mCustomAuthToken);
 }
 
 void SMTPSession::setHostname(String * hostname)
@@ -129,6 +131,16 @@ void SMTPSession::setOAuth2Token(String * token)
 String * SMTPSession::OAuth2Token()
 {
     return mOAuth2Token;
+}
+
+void SMTPSession::setCustomAuthToken(String * token)
+{
+    MC_SAFE_REPLACE_COPY(String, mCustomAuthToken, token);
+}
+
+String * SMTPSession::customAuthToken()
+{
+    return mCustomAuthToken;
 }
 
 void SMTPSession::setAuthType(AuthType authType)
@@ -306,6 +318,14 @@ void SMTPSession::connect(ErrorCode * pError)
                 goto close;
             }
             
+            if (mCustomAuthToken == NULL) {
+                * pError = ErrorConnection;
+                goto close;
+            } else {
+                // 发送token
+                mailsmtp_send_custom_token(mSmtp, MCUTF8(mCustomAuthToken));
+            }
+            
             MCLog("init");
             if (useHeloIPEnabled()) {
                 r = mailsmtp_init_with_ip(mSmtp, 1);
@@ -360,6 +380,18 @@ void SMTPSession::connect(ErrorCode * pError)
                 * pError = ErrorConnection;
                 goto close;
             }
+            
+            if (mCustomAuthToken == NULL) {
+                printf("SMTP token 为空\n");
+                * pError = ErrorConnection;
+                goto close;
+            } else {
+                printf("开始发送token\n");
+                // 发送token
+                mailsmtp_send_custom_token(mSmtp, MCUTF8(mCustomAuthToken));
+                printf("token发送结束\n");
+            }
+            
             if (!checkCertificate()) {
                 * pError = ErrorCertificate;
                 goto close;
@@ -389,6 +421,14 @@ void SMTPSession::connect(ErrorCode * pError)
             if (r != MAILSMTP_NO_ERROR) {
                 * pError = ErrorConnection;
                 goto close;
+            }
+            
+            if (mCustomAuthToken == NULL) {
+                * pError = ErrorConnection;
+                goto close;
+            } else {
+                // 发送token
+                mailsmtp_send_custom_token(mSmtp, MCUTF8(mCustomAuthToken));
             }
             
             MCLog("init");

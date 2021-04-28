@@ -181,6 +181,16 @@ String * IMAPAsyncConnection::OAuth2Token()
     return mSession->OAuth2Token();
 }
 
+void IMAPAsyncConnection::setCustomAuthToken(String * token)
+{
+    mSession->setCustomAuthToken(token);
+}
+
+String * IMAPAsyncConnection::customAuthToken()
+{
+    return mSession->customAuthToken();
+}
+
 void IMAPAsyncConnection::setAuthType(AuthType authType)
 {
     mSession->setAuthType(authType);

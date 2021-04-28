@@ -67,6 +67,9 @@ namespace mailcore {
         virtual void setOAuth2Token(String * token);
         virtual String * OAuth2Token();
         
+        virtual void setCustomAuthToken(String * token);
+        virtual String * customAuthToken();
+        
         virtual void setAuthType(AuthType authType);
         virtual AuthType authType();
         
@@ -199,6 +202,7 @@ namespace mailcore {
         String * mUsername;
         String * mPassword;
         String * mOAuth2Token;
+        String * mCustomAuthToken;
         AuthType mAuthType;
         ConnectionType mConnectionType;
         bool mCheckCertificateEnabled;

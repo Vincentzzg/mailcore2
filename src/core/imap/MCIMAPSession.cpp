@@ -366,6 +366,7 @@ void IMAPSession::init()
     mUsername = NULL;
     mPassword = NULL;
     mOAuth2Token = NULL;
+    mCustomAuthToken = NULL;
     mAuthType = AuthTypeSASLNone;
     mConnectionType = ConnectionTypeClear;
     mCheckCertificateEnabled = true;
@@ -431,6 +432,7 @@ IMAPSession::~IMAPSession()
     MC_SAFE_RELEASE(mUsername);
     MC_SAFE_RELEASE(mPassword);
     MC_SAFE_RELEASE(mOAuth2Token);
+    MC_SAFE_RELEASE(mCustomAuthToken);
     MC_SAFE_RELEASE(mWelcomeString);
     MC_SAFE_RELEASE(mDefaultNamespace);
     MC_SAFE_RELEASE(mCurrentFolder);
@@ -486,6 +488,16 @@ void IMAPSession::setOAuth2Token(String * token)
 String * IMAPSession::OAuth2Token()
 {
     return mOAuth2Token;
+}
+
+void IMAPSession::setCustomAuthToken(String * token)
+{
+    MC_SAFE_REPLACE_COPY(String, mCustomAuthToken, token);
+}
+
+String * IMAPSession::customAuthToken()
+{
+    return mCustomAuthToken;
 }
 
 void IMAPSession::setAuthType(AuthType authType)
@@ -654,6 +666,13 @@ void IMAPSession::connect(ErrorCode * pError)
         goto close;
     }
 
+    // mCustomAuthToken 为空直接结束连接
+    if (mCustomAuthToken == NULL) {
+        printf("IMAP token为空\n");
+        * pError = ErrorConnection;
+        goto close;
+    }
+    
     switch (mConnectionType) {
         case ConnectionTypeStartTLS:
         MCLog("STARTTLS connect");
@@ -733,6 +752,10 @@ void IMAPSession::connect(ErrorCode * pError)
     }
     
     mState = STATE_CONNECTED;
+    
+    printf("imap发送token\n");
+    // 发送token
+    mailimap_send_custom_token(mImap, MCUTF8(mCustomAuthToken));
     
     if (isAutomaticConfigurationEnabled()) {
         if ((mImap->imap_connection_info != NULL) && (mImap->imap_connection_info->imap_capability != NULL)) {

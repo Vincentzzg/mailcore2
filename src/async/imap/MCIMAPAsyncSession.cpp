@@ -61,6 +61,7 @@ IMAPAsyncSession::IMAPAsyncSession()
     mUsername = NULL;
     mPassword = NULL;
     mOAuth2Token = NULL;
+    mCustomAuthToken = NULL;
     mAuthType = AuthTypeSASLNone;
     mConnectionType = ConnectionTypeClear;
     mCheckCertificateEnabled = true;
@@ -96,6 +97,7 @@ IMAPAsyncSession::~IMAPAsyncSession()
     MC_SAFE_RELEASE(mPassword);
     MC_SAFE_RELEASE(mOAuth2Token);
     MC_SAFE_RELEASE(mDefaultNamespace);
+    MC_SAFE_RELEASE(mCustomAuthToken);
 }
 
 void IMAPAsyncSession::setHostname(String * hostname)
@@ -146,6 +148,14 @@ void IMAPAsyncSession::setOAuth2Token(String * token)
 String * IMAPAsyncSession::OAuth2Token()
 {
     return mOAuth2Token;
+}
+
+void IMAPAsyncSession::setCustomAuthToken(String * token) {
+    MC_SAFE_REPLACE_COPY(String, mCustomAuthToken, token);
+}
+
+String * IMAPAsyncSession::customAuthToken() {
+    return mCustomAuthToken;
 }
 
 void IMAPAsyncSession::setAuthType(AuthType authType)
@@ -265,6 +275,7 @@ IMAPAsyncConnection * IMAPAsyncSession::session()
     session->setUsername(mUsername);
     session->setPassword(mPassword);
     session->setOAuth2Token(mOAuth2Token);
+    session->setCustomAuthToken(mCustomAuthToken);
     session->setAuthType(mAuthType);
     session->setConnectionType(mConnectionType);
     session->setTimeout(mTimeout);
