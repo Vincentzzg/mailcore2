@@ -62,7 +62,7 @@
 /** This is the OAuth2 token. */
 @property (nonatomic, copy) NSString *OAuth2Token;
 
-/** This is the hikAuth token. */
+/** This is the customAuth token. */
 @property (nonatomic, copy) NSString *customAuthToken;
 
 /**
