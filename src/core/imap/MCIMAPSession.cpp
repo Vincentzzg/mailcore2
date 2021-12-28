@@ -1274,10 +1274,10 @@ IMAPFolderStatus * IMAPSession::folderStatus(String * folder, ErrorCode * pError
         return fs;
     }
     else if (r == MAILIMAP_ERROR_PARSE) {
-//        mShouldDisconnect = true;
-//        * pError = ErrorParse;
-//        mailimap_status_att_list_free(status_att_list);
-//        return fs;
+        mShouldDisconnect = true;
+        * pError = ErrorParse;
+        mailimap_status_att_list_free(status_att_list);
+        return fs;
     }
     else if (hasError(r)) {
         * pError = ErrorNonExistantFolder;
@@ -1326,10 +1326,8 @@ IMAPFolderStatus * IMAPSession::folderStatus(String * folder, ErrorCode * pError
         mailimap_mailbox_data_status_free(status);
     }
 
-    if ((r != MAILIMAP_ERROR_PARSE)) {
-        mailimap_status_att_list_free(status_att_list);
-    }
-    
+    mailimap_status_att_list_free(status_att_list);
+
     return fs;
 }
 
