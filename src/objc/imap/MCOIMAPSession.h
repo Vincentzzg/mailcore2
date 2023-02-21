@@ -308,7 +308,7 @@
 - (MCOIMAPAppendMessageOperation *)appendMessageOperationWithFolder:(NSString *)folder
                                                         messageData:(NSData *)messageData
                                                               flags:(MCOMessageFlag)flags
-                                                        customFlags:(NSArray *)customFlags;
+                                                        customFlags:(NSArray<NSString *> *)customFlags;
 
 /**
  Returns an operation to add a message with custom flags to a folder.
@@ -326,7 +326,7 @@
 - (MCOIMAPAppendMessageOperation *)appendMessageOperationWithFolder:(NSString *)folder
                                                      contentsAtPath:(NSString *)path
                                                               flags:(MCOMessageFlag)flags
-                                                        customFlags:(NSArray *)customFlags;
+                                                        customFlags:(NSArray<NSString *> *)customFlags;
 
 /**
  Returns an operation to copy messages to a folder.
@@ -410,7 +410,7 @@
                                                 uids:(MCOIndexSet *)uids
                                                 kind:(MCOIMAPStoreFlagsRequestKind)kind
                                                flags:(MCOMessageFlag)flags
-                                         customFlags:(NSArray *)customFlags;
+                                         customFlags:(NSArray<NSString *> *)customFlags;
 
 
 /**
@@ -431,7 +431,7 @@
                                              numbers:(MCOIndexSet *)numbers
                                                 kind:(MCOIMAPStoreFlagsRequestKind)kind
                                                flags:(MCOMessageFlag)flags
-                                         customFlags:(NSArray *)customFlags;
+                                         customFlags:(NSArray<NSString *> *)customFlags;
 
 /**
  Returns an operation to change labels of messages. Intended for Gmail
@@ -449,7 +449,7 @@
 - (MCOIMAPOperation *) storeLabelsOperationWithFolder:(NSString *)folder
                                               numbers:(MCOIndexSet *)numbers
                                                  kind:(MCOIMAPStoreFlagsRequestKind)kind
-                                               labels:(NSArray *)labels;
+                                               labels:(NSArray<NSString *> *)labels;
 
 /**
  Returns an operation to change labels of messages. Intended for Gmail
@@ -467,7 +467,7 @@
 - (MCOIMAPOperation *) storeLabelsOperationWithFolder:(NSString *)folder
                                                  uids:(MCOIndexSet *)uids
                                                  kind:(MCOIMAPStoreFlagsRequestKind)kind
-                                               labels:(NSArray *)labels;
+                                               labels:(NSArray<NSString *> *)labels;
 
 /** @name Fetching Messages */
 
