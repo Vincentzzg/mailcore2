@@ -6,8 +6,8 @@ popd > /dev/null
 
 . "$scriptpath/include.sh/build-dep.sh"
 
-url="https://github.com/dinhviethoa/tidy-html5"
-rev=71aaa8669c664447743bba73e07d70c291548dca
+url="https://github.com/dinhvh/tidy-html5.git"
+#rev=71aaa8669c664447743bba73e07d70c291548dca
 name="tidy-html5-ios"
 xcode_target="tidy"
 xcode_project="Tidy.xcodeproj"
