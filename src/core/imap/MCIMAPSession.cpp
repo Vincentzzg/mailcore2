@@ -2659,11 +2659,11 @@ IMAPSyncResult * IMAPSession::fetchMessages(String * folder, IMAPMessagesRequest
         * pError = ErrorConnection;
         return NULL;
     }
-    else if (r == MAILIMAP_ERROR_PARSE) { // 忽略解析错误，继续处理
+    else if (r == MAILIMAP_ERROR_PARSE) {
         MCLog("error parse");
-//        mShouldDisconnect = true;
-//        * pError = ErrorParse;
-//        return NULL;
+        mShouldDisconnect = true;
+        * pError = ErrorParse;
+        return NULL;
     }
     else if (hasError(r)) {
         MCLog("error fetch");
@@ -2700,11 +2700,7 @@ IMAPSyncResult * IMAPSession::fetchMessages(String * folder, IMAPMessagesRequest
         }
     }
     
-//    mailimap_fetch_list_free(fetch_result);
-    if (r != MAILIMAP_ERROR_PARSE) { // 解析错误情况下就不free了，free会崩溃
-        mailimap_fetch_list_free(fetch_result);
-    }
-    
+    mailimap_fetch_list_free(fetch_result);
     * pError = ErrorNone;
     
     return result;
