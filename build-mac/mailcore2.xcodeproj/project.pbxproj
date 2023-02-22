@@ -3476,7 +3476,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# \"$SRCROOT/../scripts/get-ios.sh\"\n";
+			shellScript = "\"$SRCROOT/../scripts/get-ios.sh\"\n";
 		};
 		C6BD28A6170BD87600A91AC1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
