@@ -3,7 +3,7 @@
 	url = https://github.com/dinhviethoa/ctemplate
 [submodule "deps/libetpan"]
 	path = deps/libetpan
-	url = https://github.com/dinhviethoa/libetpan.git
+	url = https://github.com/Vincentzzg/libetpan.git
 [submodule "deps/tidy-html5"]
 	path = deps/tidy-html5
 	url = https://github.com/dinhvh/tidy-html5.git
