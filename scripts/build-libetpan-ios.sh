@@ -9,7 +9,7 @@ popd > /dev/null
 #url="https://github.com/dinhviethoa/libetpan.git"
 #rev=5164ba2ebd3c7cbc7a9230aad32bdf8e24e207de
 url="https://github.com/Vincentzzg/libetpan.git"
-#rev=8de80ee1960ae633bad0856a76614870890c01aa
+rev=0e53ef824544ae232b3f63e135508e05a2b3b277
 
 name="libetpan-ios"
 xcode_target="libetpan ios"
