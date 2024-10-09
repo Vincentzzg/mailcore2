@@ -120,8 +120,6 @@ MCO_OBJC_SYNTHESIZE_SCALAR(BOOL, bool, setUrgent, isUrgent)
 
 - (void) _operationDidTimeout
 {
-    [self cancel];
-
     NSError *timeoutError = [NSError errorWithDomain:MCOErrorDomain
                                                 code:MCOErrorConnection
                                             userInfo:@{NSLocalizedDescriptionKey: @"操作已超时"}];
@@ -145,6 +143,8 @@ MCO_OBJC_SYNTHESIZE_SCALAR(BOOL, bool, setUrgent, isUrgent)
     op->setError(mailcore::ErrorConnection);
     
     [self operationCompleted];
+    
+    [self cancel];
 }
 
 
