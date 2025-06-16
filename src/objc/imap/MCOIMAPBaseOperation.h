@@ -21,9 +21,6 @@ typedef void (^MCOIMAPBaseOperationItemProgressBlock)(unsigned int current);
 
 @property (nonatomic, assign, getter=isUrgent) BOOL urgent;
 
-/** 操作的总超时时间（以秒为单位，默认为 20）。如果为 0，则表示不启用超时。*/
-@property (nonatomic, assign) NSTimeInterval operationTimeout;
-
 /* Can be overriden by subclasses */
 
 /* 
