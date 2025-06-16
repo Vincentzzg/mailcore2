@@ -19,6 +19,7 @@
 
 #include "MCBaseTypes.h"
 #include "MCUtils.h"
+#include <mutex>
 
 static chash * classHash = NULL;
 
@@ -34,8 +35,12 @@ void MCORegisterClass(Class aClass, const std::type_info * info)
 {
     init();
     
+    static std::mutex sMutex;
+    std::lock_guard<std::mutex> lock(sMutex); // ★ 线程互斥
+    
     chashdatum key;
     chashdatum value;
+    
 #ifdef __LIBCPP_TYPEINFO
     size_t hash_value = info->hash_code();
     key.data = &hash_value;
@@ -44,8 +49,16 @@ void MCORegisterClass(Class aClass, const std::type_info * info)
     key.data = (void *) info->name();
     key.len = (unsigned int) strlen(info->name());
 #endif
-    value.data = aClass;
-    value.len = 0;
+    
+    /* ==== 幂等检查：已注册就直接返回 ==== */
+    chashdatum existed;
+    if (chash_get(classHash, &key, &existed) == 0 && existed.data != NULL) {
+        return;                             // 已存在 → 忽略，避免 abort
+    }
+    
+    /* ==== 第一次注册 ==== */
+    value.data = (void *)aClass;
+    value.len  = 0;
     chash_set(classHash, &key, &value, NULL);
 }
 
