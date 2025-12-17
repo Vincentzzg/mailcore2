@@ -326,9 +326,16 @@ MCO_OBJC_SYNTHESIZE_SCALAR(dispatch_queue_t, dispatch_queue_t, setDispatchQueue,
                                                          requestKind:(MCOIMAPMessagesRequestKind)requestKind
                                                                 uids:(MCOIndexSet *)uids
 {
-    IMAPFetchMessagesOperation * coreOp = MCO_NATIVE_INSTANCE->fetchMessagesByUIDOperation([folder mco_mcString],
-                                                                                           (IMAPMessagesRequestKind) requestKind,
-                                                                                           MCO_FROM_OBJC(IndexSet, uids));
+    // 一次性获取，后续只用局部变量
+    IMAPAsyncSession *localSession = (IMAPAsyncSession *)MCO_NATIVE_INSTANCE;
+    if (!localSession) {  // 检查局部变量
+        return nil;
+    }
+    
+    // 使用局部变量，而不是再次调用 mco_mcObject
+    IMAPFetchMessagesOperation * coreOp = localSession->fetchMessagesByUIDOperation([folder mco_mcString],
+                                                                                    (IMAPMessagesRequestKind) requestKind,
+                                                                                    MCO_FROM_OBJC(IndexSet, uids));
     return MCO_TO_OBJC_OP(coreOp);
 }
 
